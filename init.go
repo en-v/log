@@ -15,15 +15,15 @@ var (
 	colorRed    = []byte("\033[0;31m")
 	colorGreen  = []byte("\033[0;32m")
 	colorOrange = []byte("\033[0;33m")
-	colorBlue   = []byte("\033[0;34m")
+	//colorBlue   = []byte("\033[0;34m")
 	colorPurple = []byte("\033[0;35m")
 	colorCyan   = []byte("\033[0;36m")
 	colorGray   = []byte("\033[0;37m")
 )
 
-func Init(Pref PrefStr, ID string) {
+func Init(Pref PrefStr, identityString string) {
 	pref = string(Pref) + "="
-	id = ID + " "
+	id = identityString + " "
 
 	switch Pref {
 	case STREAMER:
