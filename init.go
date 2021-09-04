@@ -2,6 +2,7 @@ package log
 
 // some comment
 // second comment
+// third comment
 
 var pref string
 var id string
