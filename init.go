@@ -4,11 +4,9 @@ var pref string
 var id string
 var pref_id string
 
-type PrefStr string
-
-const STREAMER PrefStr = "S"
-const CONTROLLER PrefStr = "C"
-const NODE PrefStr = "N"
+const STREAMER string = "S"
+const CONTROLLER string = "C"
+const NODE string = "N"
 
 var (
 	colorOff    = []byte("\033[0m")
@@ -21,11 +19,11 @@ var (
 	colorGray   = []byte("\033[0;37m")
 )
 
-func Init(Pref PrefStr, identityString string) {
-	pref = string(Pref) + "="
+func Init(prefixString string, identityString string) {
+	pref = string(prefixString) + "="
 	id = identityString + " "
 
-	switch Pref {
+	switch prefixString {
 	case STREAMER:
 		pref_id = string(colorOrange) + pref + id + string(colorOff)
 
