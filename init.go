@@ -1,5 +1,7 @@
 package log
 
+// some comment
+
 var pref string
 var id string
 var pref_id string
