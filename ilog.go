@@ -1,5 +1,6 @@
 package log
 
+/*
 type ILog interface {
 	Debugw(msg string, keysAndValues ...interface{})
 	Infow(msg string, keysAndValues ...interface{})
@@ -18,3 +19,4 @@ type ILog interface {
 
 	Sync() error
 }
+*/
