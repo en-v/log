@@ -9,50 +9,43 @@ import (
 	"time"
 )
 
-const CALLER_STACK = true
-const SHOW_DBG = true
-const SHOW_TIME = false
-const TS_FORMAT = "06.01.02 15:04:05.000"
-const HDR_DLMTR = " "
-
 func head(sb *strings.Builder) {
 
-	if SHOW_TIME {
-		sb.WriteString(time.Now().Format(TS_FORMAT))
+	if SHOW_EVENT_TIME {
+		sb.WriteString(time.Now().Format(TIME_FORMAT))
 	}
 
-	if CALLER_STACK {
+	if SHOW_CODE_STACK {
 		_, file, line, ok := runtime.Caller(3)
-		//sb.WriteString(" ")
 
 		if ok {
 
-			sb.Write(colorCyan)
-			fileparts := strings.Split(file, "/")
-			fpl := len(fileparts)
+			sb.Write(cyan)
+			fnparts := strings.Split(file, "/")
+			pcount := len(fnparts)
 
-			if fpl >= 2 {
-				fileparts[fpl-1] = strings.Replace(fileparts[fpl-1], ".go", ":", 1)
+			if pcount >= 2 {
+				fnparts[pcount-1] = strings.Replace(fnparts[pcount-1], ".go", ":", 1)
 
-				sb.WriteString(fileparts[fpl-2])
+				sb.WriteString(fnparts[pcount-2])
 				sb.WriteString("/")
-				sb.WriteString(fileparts[fpl-1])
+				sb.WriteString(fnparts[pcount-1])
 
 			} else {
 				sb.WriteString(file)
 			}
 
 			sb.WriteString(strconv.Itoa(line))
-			sb.Write(colorOff)
+			sb.Write(nocolor)
 
 		} else {
-			sb.WriteString("LOGGER ERROR: caller info is not OK!!! ")
+			sb.WriteString("LOG-ERROR: call stack info!")
 		}
 	}
-	sb.WriteString(HDR_DLMTR)
+	sb.WriteString(HDR_DELIMITER)
 }
 
-func buildArrayString(sb *strings.Builder, args []interface{}, pairs bool) {
+func args(sb *strings.Builder, args []interface{}, pairs bool) {
 
 	end := len(args) - 1
 
@@ -94,24 +87,25 @@ func buildArrayString(sb *strings.Builder, args []interface{}, pairs bool) {
 	}
 }
 
-func printToDestination(mt int, sb *strings.Builder) {
+func tofile(mt int, sb *strings.Builder) {
 
 	sb.WriteString(EOL)
 	str := sb.String()
 
 	var err error
+
 	switch mt {
-	case T_DBG:
+	case EVENT_TYPE_DEBUG:
 		print(str)
-		_, err = dbgfile.WriteString(str)
+		_, err = fdbg.WriteString(str)
 
-	case T_NFO:
+	case EVENT_TYPE_INFO:
 		print(str)
-		_, err = nfofile.WriteString(str)
+		_, err = fnfo.WriteString(str)
 
-	case T_ERR:
+	case EVENT_TYPE_ERROR:
 		print(str)
-		_, err = errfile.WriteString(str)
+		_, err = ferr.WriteString(str)
 
 	default:
 		err = errors.New("Unknown log file type " + strconv.Itoa(mt))

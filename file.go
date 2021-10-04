@@ -7,9 +7,9 @@ import (
 )
 
 var (
-	nfofile *os.File
-	dbgfile *os.File
-	errfile *os.File
+	fnfo *os.File
+	fdbg *os.File
+	ferr *os.File
 
 	err error
 )
@@ -22,12 +22,12 @@ func init() {
 		panic(err)
 	}
 
-	dbgfile = openFile(path + "/debug.log")
-	nfofile = openFile(path + "/info.log")
-	errfile = openFile(path + "/error.log")
+	fdbg = fopen(path + "/debug.log")
+	fnfo = fopen(path + "/info.log")
+	ferr = fopen(path + "/error.log")
 }
 
-func openFile(name string) *os.File {
+func fopen(name string) *os.File {
 
 	fl, err := os.OpenFile(name, os.O_WRONLY|os.O_RDONLY|os.O_CREATE, DATAFILE_PERMISSION)
 	if err != nil {
@@ -39,11 +39,10 @@ func openFile(name string) *os.File {
 		panic(err)
 	}
 
-	_, err = fl.WriteString("\n\r##### APP LAUNCH ##### " + time.Now().Format(TS_FORMAT) + " ##### APP LAUNCH #####\n\r")
+	_, err = fl.WriteString("\n\r##### APP LAUNCH ##### " + time.Now().Format(TIME_FORMAT) + " ##### APP LAUNCH #####\n\r")
 	if err != nil {
 		panic(err)
 	}
 
 	return fl
-
 }

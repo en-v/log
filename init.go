@@ -1,44 +1,32 @@
 package log
 
-// some comment
-// second comment
-// third comment
-
-var pref string
 var id string
-var pref_id string
-
-const STREAMER string = "S"
-const CONTROLLER string = "C"
-const NODE string = "N"
 
 var (
-	colorOff    = []byte("\033[0m")
-	colorRed    = []byte("\033[0;31m")
-	colorGreen  = []byte("\033[0;32m")
-	colorOrange = []byte("\033[0;33m")
+	nocolor = []byte("\033[0m")
+	red     = []byte("\033[0;31m")
+	green   = []byte("\033[0;32m")
+	orange  = []byte("\033[0;33m")
 	//colorBlue   = []byte("\033[0;34m")
-	colorPurple = []byte("\033[0;35m")
-	colorCyan   = []byte("\033[0;36m")
-	colorGray   = []byte("\033[0;37m")
+	purple = []byte("\033[0;35m")
+	cyan   = []byte("\033[0;36m")
+	gray   = []byte("\033[0;37m")
 )
 
-func Init(prefixString string, identityString string) {
-	pref = string(prefixString) + "="
-	id = identityString + " "
+func Init(color ColorName, idstr string) {
 
-	switch prefixString {
-	case STREAMER:
-		pref_id = string(colorOrange) + pref + id + string(colorOff)
+	switch color {
+	case ORANGE:
+		id = string(orange) + idstr + string(nocolor)
 
-	case NODE:
-		pref_id = string(colorGreen) + pref + id + string(colorOff)
+	case GREEN:
+		id = string(green) + idstr + string(nocolor)
 
-	case CONTROLLER:
-		pref_id = string(colorPurple) + pref + id + string(colorOff)
+	case PURPLE:
+		id = string(purple) + idstr + string(nocolor)
 
 	default:
-		pref_id = string(colorGray) + "__________" + string(colorOff)
+		id = string(gray) + " NO ID " + string(nocolor)
 	}
 
 }
