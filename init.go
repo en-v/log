@@ -17,16 +17,16 @@ func Init(color ColorName, idstr string) {
 
 	switch color {
 	case ORANGE:
-		id = string(orange) + idstr + string(nocolor)
+		id = string(orange) + idstr + string(nocolor) + " "
 
 	case GREEN:
-		id = string(green) + idstr + string(nocolor)
+		id = string(green) + idstr + string(nocolor) + " "
 
 	case PURPLE:
-		id = string(purple) + idstr + string(nocolor)
+		id = string(purple) + idstr + string(nocolor) + " "
 
 	default:
-		id = string(gray) + " NO ID " + string(nocolor)
+		id = string(gray) + " NO ID " + string(nocolor) + " "
 	}
 
 }
